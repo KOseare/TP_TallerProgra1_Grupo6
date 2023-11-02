@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import modeloDatos.ClientePuntaje;
@@ -13,121 +14,134 @@ import modeloDatos.Ticket;
 import util.Constantes;
 
 public class EmpleadorTest {
+	Empleador emp;
+	
+	@Before
+	public void initEmpleador () {
+		this.emp = new Empleador();
+	}
 	
 	@Test
-	public void testEmpleadorStringStringStringStringStringString() {
-		Empleador e = new Empleador("pablo_r", "123456", "Pablo Rosas", "+5492236012345", Constantes.COMERCIO_LOCAL, Constantes.EMPLEADOR);
-		String resultado = e.getRubro();
-		assertEquals(resultado, Constantes.COMERCIO_LOCAL);
+	public void testEmpleador1() {
+		this.emp = new Empleador("nicod", "123456", "Nicolas Diaz", "+5492236012345", Constantes.SALUD, Constantes.FISICA);
+		assertEquals("nicod", this.emp.getUsserName());
+		assertEquals("123456", this.emp.getPassword());
+		assertEquals("Nicolas Diaz", this.emp.getRealName());
+		assertEquals("+5492236012345", this.emp.getTelefono());
+		assertEquals(Constantes.SALUD, this.emp.getRubro());
+		assertEquals(Constantes.FISICA, this.emp.getTipoPersona());
+	}
+	
+	@Test
+	public void testEmpleador2() {
+		this.emp = new Empleador("nicod", "123456", "Nicolas Diaz", "+5492236012345", Constantes.COMERCIO_INTERNACIONAL, Constantes.JURIDICA);
+		assertEquals("nicod", this.emp.getUsserName());
+		assertEquals("123456", this.emp.getPassword());
+		assertEquals("Nicolas Diaz", this.emp.getRealName());
+		assertEquals("+5492236012345", this.emp.getTelefono());
+		assertEquals(Constantes.COMERCIO_INTERNACIONAL, this.emp.getRubro());
+		assertEquals(Constantes.JURIDICA, this.emp.getTipoPersona());
 	}
 	
 	@Test
 	public void testGetSetRubro1() {
-		Empleador e = new Empleador();
-		e.setRubro(Constantes.SALUD);
-		assertEquals(Constantes.SALUD, e.getRubro());
+		this.emp.setRubro(Constantes.SALUD);
+		assertEquals(Constantes.SALUD, this.emp.getRubro());
 	}
 	
 	@Test
 	public void testGetSetRubro2() {
-		Empleador e = new Empleador();
-		e.setRubro(Constantes.COMERCIO_LOCAL);
-		assertEquals(Constantes.COMERCIO_LOCAL, e.getRubro());
+		this.emp.setRubro(Constantes.COMERCIO_LOCAL);
+		assertEquals(Constantes.COMERCIO_LOCAL, this.emp.getRubro());
 	}
 	
 	@Test
 	public void testGetSetRubro3() {
-		Empleador e = new Empleador();
-		e.setRubro(Constantes.COMERCIO_INTERNACIONAL);
-		assertEquals(Constantes.COMERCIO_INTERNACIONAL, e.getRubro());
+		this.emp.setRubro(Constantes.COMERCIO_INTERNACIONAL);
+		assertEquals(Constantes.COMERCIO_INTERNACIONAL, this.emp.getRubro());
 	}
 
 	@Test
 	public void testGetSetTipoPersona1() {
-		Empleador e = new Empleador();
-		e.setTipoPersona(Constantes.FISICA);
-		assertEquals(Constantes.FISICA, e.getTipoPersona());
+		this.emp.setTipoPersona(Constantes.FISICA);
+		assertEquals(Constantes.FISICA, this.emp.getTipoPersona());
 	}
 	
 	@Test
 	public void testGetSetTipoPersona2() {
-		Empleador e = new Empleador();
-		e.setTipoPersona(Constantes.JURIDICA);
-		assertEquals(Constantes.JURIDICA, e.getTipoPersona());
+		this.emp.setTipoPersona(Constantes.JURIDICA);
+		assertEquals(Constantes.JURIDICA, this.emp.getTipoPersona());
 	}
 	
 	@Test
 	public void testCalculaComision1() {
-		Empleador e = new Empleador();
-		e.setRubro(Constantes.SALUD);
+		this.emp.setRubro(Constantes.SALUD);
 		Ticket t = new Ticket();
 		t.setRemuneracion(1000);
-		assertEquals(600.0, e.calculaComision(t), 0.001);
+		assertEquals(600.0, this.emp.calculaComision(t), 0.001);
 	}
 	
 	@Test
 	public void testCalculaComision2() {
-		Empleador e = new Empleador();
-		e.setRubro(Constantes.COMERCIO_LOCAL);
+		this.emp.setRubro(Constantes.COMERCIO_LOCAL);
 		Ticket t = new Ticket();
 		t.setRemuneracion(1000);
-		assertEquals(700.0, e.calculaComision(t), 0.001);
+		assertEquals(700.0, this.emp.calculaComision(t), 0.001);
 	}
 	
 	@Test
 	public void testCalculaComision3() {
-		Empleador e = new Empleador();
-		e.setRubro(Constantes.COMERCIO_INTERNACIONAL);
+		this.emp.setRubro(Constantes.COMERCIO_INTERNACIONAL);
 		Ticket t = new Ticket();
 		t.setRemuneracion(1000);
-		assertEquals(800.0, e.calculaComision(t), 0.001);
+		assertEquals(800.0, this.emp.calculaComision(t), 0.001);
 	}
 
 	@Test
 	public void testGetSetCandidato() {
-		Empleador e = new Empleador();
 		EmpleadoPretenso candidato = new EmpleadoPretenso();
-		e.setCandidato(candidato);
-		assertEquals(candidato, e.getCandidato());
+		this.emp.setCandidato(candidato);
+		assertEquals(candidato, this.emp.getCandidato());
 	}
 
 	@Test
 	public void testGetSetListaDePostulantes() {
-		Empleador e = new Empleador();
 		ArrayList<ClientePuntaje> postulantes = new ArrayList<ClientePuntaje>();
 		postulantes.add(new ClientePuntaje(10.0, new EmpleadoPretenso()));
 		postulantes.add(new ClientePuntaje(25.2, new EmpleadoPretenso()));
 		postulantes.add(new ClientePuntaje(15.3, new EmpleadoPretenso()));
-		e.setListaDePostulantes(postulantes);
-		assertEquals(postulantes, e.getListaDePostulantes());
+		this.emp.setListaDePostulantes(postulantes);
+		assertEquals(postulantes, this.emp.getListaDePostulantes());
 	}
 
 	@Test
 	public void testGetSetPuntaje1() {
-		Empleador e = new Empleador();
-		e.setPuntaje(50);
-		assertEquals(50, e.getPuntaje());
+		this.emp.setPuntaje(50);
+		assertEquals(50, this.emp.getPuntaje());
 	}
 
 	@Test
 	public void testGetSetPuntaje2() {
-		Empleador e = new Empleador();
-		e.setPuntaje(0);
-		assertEquals(0, e.getPuntaje());
+		this.emp.setPuntaje(0);
+		assertEquals(0, this.emp.getPuntaje());
 	}
 	
 	@Test
 	public void testGetSetPuntaje3() {
-		Empleador e = new Empleador();
-		e.setPuntaje(-10);
-		assertEquals(-10, e.getPuntaje());
+		this.emp.setPuntaje(-10);
+		assertEquals(-10, this.emp.getPuntaje());
 	}
 
 	@Test
 	public void testGetSetTicket() {
-		Empleador e = new Empleador();
 		Ticket t = new Ticket();
-		e.setTicket(t);
-		assertEquals(t, e.getTicket());
+		this.emp.setTicket(t);
+		assertEquals(t, this.emp.getTicket());
+	}
+	
+	@Test
+	public void testToString() {
+		this.emp = new Empleador("nicod", "123456", "Nicolas Diaz", "+5492236012345", Constantes.SALUD, Constantes.FISICA);
+		assertEquals("nicod, realName=+5492236012345 Puntaje: 0", this.emp.toString());
 	}
 }

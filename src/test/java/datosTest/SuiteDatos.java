@@ -7,7 +7,8 @@ import org.junit.runners.Suite.SuiteClasses;
 @RunWith(Suite.class)
 @SuiteClasses({ 
 	EmpleadorTest.class,
-	UsuarioTest.class
+	UsuarioTest.class,
+	EmpleadoPretensoTest.class
 })
 public class SuiteDatos {
 
