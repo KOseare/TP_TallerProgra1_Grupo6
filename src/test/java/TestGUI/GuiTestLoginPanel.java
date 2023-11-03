@@ -16,16 +16,15 @@ import javax.swing.JTextField;
 import bin.controlador.Controlador;
 
 import util.Constantes;
+import vista.PanelRegistro;
 import vista.Ventana;
 
 public class GuiTestLoginPanel {
 
 	Robot robot;
 	Controlador controlador;
-	/*@Test
-	public void test() {
-		fail("me cago matando");
-	}*/
+
+	
 	
 	public GuiTestLoginPanel() {
 		try {
@@ -41,12 +40,13 @@ public class GuiTestLoginPanel {
         controlador = new Controlador();
     }
     
-    /*
+    
     @After
     public void tearDown() throws Exception
     {
-        controlador.getVentana().setVisible(false);
-    }*/
+        Ventana v = (Ventana)controlador.getVista();
+        v.setVisible(false);
+    }
     
     @Test
     public void testVacio() {
@@ -108,6 +108,24 @@ public class GuiTestLoginPanel {
         Assert.assertFalse("El boton de login deberia estar habilitado", !aceptarLog.isEnabled());
     	
     }
+    @Test
+    public void testBotonRegistro()
+    {
+        robot.delay(TestUtils.getDelay());
+        //obtengo las referencias a los componentes necesarios
+    	JButton registroButton = (JButton) TestUtils.getComponentForName((Ventana)controlador.getVista(), Constantes.REGISTRAR);
+    	 
+    	
+    	Assert.assertTrue("El boton de registro deberia estar habilitado", registroButton.isEnabled());
+ 
+    	//clickea boton
+        TestUtils.clickComponent(registroButton, robot);
+        
+        robot.delay(TestUtils.getDelay());
+        
+        Assert.assertTrue("deberia abrirse un PaneldeRegistro", (controlador.getVista() instanceof PanelRegistro));
+    }
+    
     
     
 
