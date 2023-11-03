@@ -13,9 +13,7 @@ public class PersistenciaTest {
 	public static void setUpBeforeClass() throws Exception {
 	}
 
-	@Before
-	public void setUp() throws Exception {
-	}
+
 
 	@After
 	public void tearDown() throws Exception {
