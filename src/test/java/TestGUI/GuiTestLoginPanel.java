@@ -1,30 +1,28 @@
 package TestGUI;
 
-import static org.junit.Assert.fail;
-
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-
 import java.awt.AWTException;
 import java.awt.Robot;
 
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
-import bin.controlador.Controlador;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
+import controlador.Controlador;
+import bin.util.Mensajes;
 import util.Constantes;
-import vista.PanelRegistro;
+import vista.IOptionPane;
 import vista.Ventana;
 
 public class GuiTestLoginPanel {
 
-	Robot robot;
-	Controlador controlador;
+	protected Robot robot;
+	protected Controlador controlador;
 
-	
+	protected FalsoOptionPane op = new FalsoOptionPane();
 	
 	public GuiTestLoginPanel() {
 		try {
@@ -38,6 +36,8 @@ public class GuiTestLoginPanel {
     public void setUp() throws Exception
     {
         controlador = new Controlador();
+        controlador.setMyOptionPane(op);
+        
     }
     
     
@@ -47,6 +47,28 @@ public class GuiTestLoginPanel {
         Ventana v = (Ventana)controlador.getVista();
         v.setVisible(false);
     }
+    
+    @Test
+    public void testBotonRegistro()
+    {
+        robot.delay(TestUtils.getDelay());
+        //obtengo las referencias a los componentes necesarios
+    	JButton registroButton = (JButton) TestUtils.getComponentForName((Ventana)controlador.getVista(), Constantes.REGISTRAR);
+    	 
+    	
+    	Assert.assertTrue("El boton de registro deberia estar habilitado", registroButton.isEnabled());
+ 
+    	//clickea boton
+        TestUtils.clickComponent(registroButton, robot);
+        
+        robot.delay(50);
+        
+        //no ecncontre otra manera de saber si el panelLogin cambio a PanelRegistro
+        JButton cancelarButton = (JButton) TestUtils.getComponentForName((Ventana)controlador.getVista(), Constantes.REG_BUTTON_CANCELAR);
+        
+        Assert.assertTrue("deberia abrirse un PaneldeRegistro", (cancelarButton instanceof JButton));
+    }
+    
     
     @Test
     public void testVacio() {
@@ -109,23 +131,29 @@ public class GuiTestLoginPanel {
     	
     }
     @Test
-    public void testBotonRegistro()
+    public void testLoginUsuarioDesconocido()
     {
-        robot.delay(TestUtils.getDelay());
+    	robot.delay(TestUtils.getDelay());
         //obtengo las referencias a los componentes necesarios
-    	JButton registroButton = (JButton) TestUtils.getComponentForName((Ventana)controlador.getVista(), Constantes.REGISTRAR);
+        JTextField nombreUsuario =
+            (JTextField) TestUtils.getComponentForName((Ventana)controlador.getVista(), Constantes.NOMBRE_USUARIO);
+        JTextField contra =
+                (JTextField) TestUtils.getComponentForName((Ventana)controlador.getVista(), Constantes.PASSWORD);
+
+        JButton aceptarLog = (JButton) TestUtils.getComponentForName((Ventana)controlador.getVista(), Constantes.LOGIN);
     	 
     	
-    	Assert.assertTrue("El boton de registro deberia estar habilitado", registroButton.isEnabled());
- 
-    	//clickea boton
-        TestUtils.clickComponent(registroButton, robot);
+        //lleno los JTextField
+        TestUtils.clickComponent(nombreUsuario, robot);
+        TestUtils.tipeaTexto("Bahiano", robot);
+        TestUtils.clickComponent(contra, robot);
+        TestUtils.tipeaTexto("1234", robot);
         
-        robot.delay(TestUtils.getDelay());
-        
-        Assert.assertTrue("deberia abrirse un PaneldeRegistro", (controlador.getVista() instanceof PanelRegistro));
+        TestUtils.clickComponent(aceptarLog, robot);
+        //verifico los resultados
+        Assert.assertEquals(Mensajes.USUARIO_DESCONOCIDO.getValor(), op.getMensaje());
+    	
     }
-    
     
     
 
