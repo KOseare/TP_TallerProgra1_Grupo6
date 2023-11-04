@@ -18,8 +18,9 @@ public class GuiTestLoginPanelConDatos extends GuiTestLoginPanel {
     @Before
     public void setUp() throws Exception
     {
-    	 controlador = new Controlador();
-         controlador.setMyOptionPane(op);
+       controlador = new Controlador();
+       controlador.setMyOptionPane(op);
+       
        Agencia.getInstance().getEmpleadores().clear();
        Agencia.getInstance().getEmpleados().clear();
        
