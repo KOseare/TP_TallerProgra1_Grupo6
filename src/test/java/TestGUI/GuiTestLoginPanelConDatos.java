@@ -16,13 +16,8 @@ import vista.Ventana;
 public class GuiTestLoginPanelConDatos extends GuiTestLoginPanel {
 
     @Before
-    public void setUp() throws Exception
+    public void setUpDatos() throws Exception
     {
-       controlador = new Controlador();
-       controlador.setMyOptionPane(op);
-       
-       Agencia.getInstance().getEmpleadores().clear();
-       Agencia.getInstance().getEmpleados().clear();
        
        Agencia.getInstance().registroEmpleado("Roberts", "123456", "Roberto", "Manhattan", "2233222332", 18);
        Agencia.getInstance().registroEmpleador("Juan Ignacio", "password", "DrOcropus :P", "4637283942", Constantes.FISICA, Constantes.SALUD); 
@@ -76,5 +71,6 @@ public class GuiTestLoginPanelConDatos extends GuiTestLoginPanel {
         Assert.assertEquals(Mensajes.PASS_ERRONEO.getValor(), op.getMensaje());
     	
     }
+    
     
 }
