@@ -158,7 +158,9 @@ public class GuiTestLoginPanel {
         Assert.assertEquals(Mensajes.USUARIO_DESCONOCIDO.getValor(), op.getMensaje());
     	
     }
-    
-    
+    @Test
+    public void testAdminLog() {
+    	
+    }
 
 }
