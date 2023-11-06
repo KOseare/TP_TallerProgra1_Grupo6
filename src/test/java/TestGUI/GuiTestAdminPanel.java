@@ -164,11 +164,20 @@ public class GuiTestAdminPanel {
     {
     	robot.delay(TestUtils.getDelay());
     	TestUtils.clickComponent(gatillarButton, robot);
-
+    	//no lo muestra en una ventana emergente
     	Assert.assertTrue("Se deberia mostrar el mensaje AGENCIA_EN_CONTRATACION", Agencia.getInstance().getEstado() == Mensajes.AGENCIA_EN_CONTRATACION.getValor());
     	TestUtils.clickComponent(gatillarButton, robot);
     	Assert.assertTrue("Se deberia mostrar el mensaje AGENCIA_EN_BUSQUEDA", Agencia.getInstance().getEstado() == Mensajes.AGENCIA_EN_BUSQUEDA.getValor());
     	
     }
+    @Test
+    public void testAplicarPromo()
+    {
+    	robot.delay(TestUtils.getDelay());
+        TestUtils.clickComponent(aplicarPromoButton, robot);
+        //hay una excepcion O.O	
+
+    }
+    
 	
 }
