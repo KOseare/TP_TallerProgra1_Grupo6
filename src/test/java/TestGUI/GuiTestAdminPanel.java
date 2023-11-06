@@ -176,7 +176,7 @@ public class GuiTestAdminPanel {
     	robot.delay(TestUtils.getDelay());
         TestUtils.clickComponent(aplicarPromoButton, robot);
         //hay una excepcion O.O	
-        
+        Assert.fail("no se deberia lanzar una excepcion");
     }
     
 	
