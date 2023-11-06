@@ -165,10 +165,9 @@ public class GuiTestAdminPanel {
     	robot.delay(TestUtils.getDelay());
     	TestUtils.clickComponent(gatillarButton, robot);
 
-    	robot.delay(10000);
-    	Assert.assertTrue("Se deberia mostrar el mensaje AGENCIA_EN_BUSQUEDA", op.getMensaje() == Mensajes.AGENCIA_EN_BUSQUEDA.getValor());
+    	Assert.assertTrue("Se deberia mostrar el mensaje AGENCIA_EN_CONTRATACION", Agencia.getInstance().getEstado() == Mensajes.AGENCIA_EN_CONTRATACION.getValor());
     	TestUtils.clickComponent(gatillarButton, robot);
-    	Assert.assertTrue("Se deberia mostrar el mensaje AGENCIA_EN_BUSQUEDA", op.getMensaje() == Mensajes.AGENCIA_EN_CONTRATACION.getValor());
+    	Assert.assertTrue("Se deberia mostrar el mensaje AGENCIA_EN_BUSQUEDA", Agencia.getInstance().getEstado() == Mensajes.AGENCIA_EN_BUSQUEDA.getValor());
     	
     }
 	
