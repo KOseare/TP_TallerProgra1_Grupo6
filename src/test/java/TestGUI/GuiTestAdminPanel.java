@@ -27,11 +27,12 @@ public class GuiTestAdminPanel {
 
 	protected FalsoOptionPane op = new FalsoOptionPane();
 	
-	JButton loginButton,gatillarButton,aplicarPromoButton,modificarValoresButton,cerrarSesionButton;
-	JTextField textoInferior, textoSuperior,nombreUsuario,contra;
-	JCheckBox listaPostulantes;
-	JList<EmpleadoPretenso> listaEmpleados;
-	JList<Empleador> listaEmpleadores;
+	protected JButton loginButton,gatillarButton,aplicarPromoButton,modificarValoresButton,cerrarSesionButton;
+	protected JTextField textoInferior, textoSuperior,nombreUsuario,contra;
+	protected JCheckBox listaPostulantes;
+	protected JList<EmpleadoPretenso> listaEmpleados;
+	protected JList<Empleador> listaEmpleadores;
+	
 	public GuiTestAdminPanel() {
 		try {
 			robot = new Robot();
@@ -178,6 +179,17 @@ public class GuiTestAdminPanel {
         //hay una excepcion O.O	
         Assert.fail("no se deberia lanzar una excepcion");
     }
+	@Test
+	public void testVistaIsPorTicket() {
+    	robot.delay(TestUtils.getDelay());
+        TestUtils.clickComponent(listaPostulantes, robot);
+        
+       
+        Assert.assertTrue("Deberian coincidir el metodo isPorTicket con el checklist", controlador.getVista().isPorTicket() == listaPostulantes.isSelected());
+	}
+    
+
+    
     
 	
 }
