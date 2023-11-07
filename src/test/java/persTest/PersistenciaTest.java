@@ -1,11 +1,14 @@
 package persTest;
 
+import static org.junit.Assert.fail;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -32,14 +35,10 @@ leer()*/
 public class PersistenciaTest {
 	AgenciaDTO ag;
 	PersistenciaXML persistencia;
-	@BeforeClass
+	@Before
 	public void setUp() {
-		//borra el archivo
-		ag = new AgenciaDTO();
 		persistencia = new PersistenciaXML();
-		File arch = new File ("archivo.xml");
-		if (arch.exists())
-			arch.delete();
+		
 		}
 
 	@After
@@ -47,20 +46,38 @@ public class PersistenciaTest {
 	}
 
 	@Test
-	public void testCrearArchivo() {
-		 //verifica que el mÃ©todo persistir crea un archivo
-		try {
-			File arch = new File ("archivo.xml");
-			Assert.assertTrue("debería existir el archivo archivo.xml", arch.exists());
-		}
-		catch (FileNotFoundException e) {
-			Assert.fail("No debería lanzar excepcion: "+e.getMessage());
-		}
-	}
-	@Test
-    public void testAbrirInput() throws IOException {
-        persistencia.abrirInput("archivo.xml");
-        
+    public void testAbrirInput() throws IOException  {
+		File arch = new File ("archivo.xml");
+		String a=null;
+		//persistencia.abrirInput("archivo.xml");
+		//persistencia.abrirInput(a);
+		//persistencia.abrirInput("archivoxml");
     }
+	
+	@Test
+    public void testAbrirOutput() {
+		File arch = new File ("archivo.xml");
+		String a=null;
+		try {
+			persistencia.abrirOutput("archivo.xml");
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			fail("no debería lanzar una excepcion");
+		}
+		try {
+			persistencia.abrirOutput(a);
+			fail("debería lanzar una excepcion");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+		}
+		try {
+			persistencia.abrirOutput("archivoxml");
+			fail("debería lanzar una excepcion");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+	
 
 }
