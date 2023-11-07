@@ -11,6 +11,7 @@ import modeloDatos.EmpleadoPretenso;
 import modeloDatos.Empleador;
 import modeloDatos.Ticket;
 import util.Constantes;
+import promo.UtilPromo;
 
 public class EmpleadorTest {
 	
@@ -19,6 +20,7 @@ public class EmpleadorTest {
 		Empleador e = new Empleador("pablo_r", "123456", "Pablo Rosas", "+5492236012345", Constantes.COMERCIO_LOCAL, Constantes.EMPLEADOR);
 		String resultado = e.getRubro();
 		assertEquals(resultado, Constantes.COMERCIO_LOCAL);
+		UtilPromo utp
 	}
 	
 	@Test
