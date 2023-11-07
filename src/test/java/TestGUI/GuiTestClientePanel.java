@@ -74,7 +74,9 @@ public class GuiTestClientePanel {
 		TestUtils.tipeaTexto("Roberts", robot);
 		TestUtils.clickComponent(contra, robot);
 		TestUtils.tipeaTexto("123456", robot);
+
 		TestUtils.clickComponent(loginButton, robot);
+		
 		// se debe de abrir un Panel Cliente
 
 		// datos a usar
@@ -141,8 +143,41 @@ public class GuiTestClientePanel {
 		}catch(Exception e) {
 			fail("no deberia lanzar excepcion");
 		}
-
-
 	}
+	
+	@Test
+	public void testCamposNuevoTicket() {
+		robot.delay(TestUtils.getDelay()*100);
+			
+		TestUtils.clickComponent(nuevoTicket, robot);
+	
+		Assert.assertTrue("deberia estar activado", jornadaMedia.isRolloverEnabled());
+		Assert.assertTrue("deberia estar activado", jornadaExtendida.isRolloverEnabled());
+		Assert.assertTrue("deberia estar activado", jornadaCompleta.isRolloverEnabled());
+
+		Assert.assertTrue("deberia estar activado", expNada.isRolloverEnabled());
+		Assert.assertTrue("deberia estar activado", expMedia.isRolloverEnabled());
+		Assert.assertTrue("deberia estar activado", expMucha.isRolloverEnabled());
+		
+		Assert.assertTrue("deberia estar activado", primario.isRolloverEnabled());
+		Assert.assertTrue("deberia estar activado", secundario.isRolloverEnabled());
+		Assert.assertTrue("deberia estar activado", terciario.isRolloverEnabled());
+		
+		Assert.assertTrue("deberia estar activado", junior.isRolloverEnabled());
+		Assert.assertTrue("deberia estar activado", senior.isRolloverEnabled());
+		Assert.assertTrue("deberia estar activado", managment.isRolloverEnabled());
+		
+		Assert.assertTrue("deberia estar activado", prescencial.isRolloverEnabled());
+		Assert.assertTrue("deberia estar activado", homeOffice.isRolloverEnabled());
+		Assert.assertTrue("deberia estar activado", indistinto.isRolloverEnabled());
+	
+		Assert.assertTrue("deberia estar activado", remuneracionPretendida.isEditable());
+		Assert.assertTrue("deberia estar activado", confirmarTicket.isEnabled());
+		
+		Assert.assertTrue("deberia estar desactivado", nuevoTicket.isEnabled());
+		
+	}
+	
+	
 	
 }
