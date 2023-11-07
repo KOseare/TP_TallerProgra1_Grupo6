@@ -50,6 +50,4 @@ public class TestUtilPromo {
 		//utilPromoTest.aplicaPromo(false, empleados, empleadores);  
 	}
 	
-	
-	
 }
