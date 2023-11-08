@@ -161,11 +161,11 @@ public class GuiTestAdminPanel {
     	Assert.assertTrue("Se deberia cambiar al panel Login", cerrarSesionButton.isEnabled());//no asegura que este en el panel login
     }
     @Test
-    public void testGatillar()
+    public void testGatillar()//no esta el metodo getTitle de la vista
     {
     	robot.delay(TestUtils.getDelay());
     	TestUtils.clickComponent(gatillarButton, robot);
-    	//no lo muestra en una ventana emergente
+    	//no lo muestra en una ventana emergente, lo muestra en el titulo
     	Assert.assertTrue("Se deberia mostrar el mensaje AGENCIA_EN_CONTRATACION", Agencia.getInstance().getEstado() == Mensajes.AGENCIA_EN_CONTRATACION.getValor());
     	TestUtils.clickComponent(gatillarButton, robot);
     	Assert.assertTrue("Se deberia mostrar el mensaje AGENCIA_EN_BUSQUEDA", Agencia.getInstance().getEstado() == Mensajes.AGENCIA_EN_BUSQUEDA.getValor());
@@ -175,9 +175,12 @@ public class GuiTestAdminPanel {
     public void testAplicarPromo()
     {
     	robot.delay(TestUtils.getDelay());
-        TestUtils.clickComponent(aplicarPromoButton, robot);
+
+    	TestUtils.clickComponent(aplicarPromoButton, robot);
+    
         //hay una excepcion O.O	
         Assert.fail("no se deberia lanzar una excepcion");
+    	
     }
 	@Test
 	public void testVistaIsPorTicket() {

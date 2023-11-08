@@ -15,7 +15,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import bin.util.Mensajes;
+import util.Mensajes;
 import controlador.Controlador;
 import excepciones.ImposibleModificarTicketsException;
 import modeloDatos.Cliente;
@@ -216,6 +216,12 @@ public class GuiTestClientePanel {
 		robot.delay(TestUtils.getDelay());
 		try {
 			Agencia.getInstance().crearTicketEmpleado(Constantes.PRESENCIAL, 12000, Constantes.JORNADA_MEDIA, Constantes.JUNIOR, Constantes.EXP_NADA, Constantes.TERCIARIOS, Agencia.getInstance().getEmpleados().get(0));
+			Assert.assertTrue("deberia estar activado",eliminarTicket.isEnabled());
+			
+			TestUtils.clickComponent(eliminarTicket, robot);
+			Assert.assertFalse("deberia estar desactivado",eliminarTicket.isEnabled());
+			
+			
 		} catch (ImposibleModificarTicketsException e) {
 			// TODO Auto-generated catch block
 			fail("no deberia lanzar excepcion");
@@ -224,7 +230,7 @@ public class GuiTestClientePanel {
 	@Test
 	public void testAreaDeTexto() {
 		robot.delay(TestUtils.getDelay());
-		Assert.assertTrue("deberia mostra el mensaje Mensajes.SIN_TICKET.getValor()",textAreaTicket.getText() == "");//no existe Mensajes.SIN_TICKET.getValor()
+		Assert.assertTrue("deberia mostra el mensaje Mensajes.SIN_TICKET.getValor()",textAreaTicket.getText() == Mensajes.SIN_TICKET.getValor());//no existe Mensajes.SIN_TICKET.getValor()
 	}
 	@Test
 	public void testCerrarSesion() {

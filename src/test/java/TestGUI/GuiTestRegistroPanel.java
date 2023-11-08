@@ -12,16 +12,14 @@ import javax.swing.JTextField;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import bin.util.Mensajes;
+import util.Mensajes;
 import controlador.Controlador;
 import excepciones.ImposibleCrearEmpleadoException;
 import excepciones.NewRegisterException;
 import modeloNegocio.Agencia;
 import util.Constantes;
-import vista.PanelLogin;
 import vista.Ventana;
 /*
  * 
@@ -29,6 +27,7 @@ import vista.Ventana;
  * 
  * */
 public class GuiTestRegistroPanel {
+
 
 	protected Robot robot;
 	protected Controlador controlador;
@@ -554,7 +553,7 @@ public class GuiTestRegistroPanel {
 	@Test	
 	public void testRegPassNoCoincide() {
 		robot.delay(TestUtils.getDelay());
-		int aux = Agencia.getInstance().getEmpleadores().size();
+		
 
 		TestUtils.clickComponent(empleador, robot);
 
@@ -579,8 +578,8 @@ public class GuiTestRegistroPanel {
 		
 		TestUtils.clickComponent(registroButton, robot);
 		
-		Assert.assertEquals(Mensajes.PASS_ERRONEO.getValor(), op.getMensaje());//se espera un mensaje pero en realidad agrega el empleado con contraseña incorrecta
-		//no existe Mensajes.PASS_NO_COINCIDE
+		Assert.assertEquals(Mensajes.PASS_NO_COINCIDE.getValor(), op.getMensaje());//se espera un mensaje pero en realidad agrega el empleado con contraseña incorrecta
+		
 	}
 	@Test
 	public void testRegUsuarioRepetido() {
@@ -631,7 +630,6 @@ public class GuiTestRegistroPanel {
 	@Test
 	public void testCambioDePanel() {
 		robot.delay(TestUtils.getDelay());
-		int aux = Agencia.getInstance().getEmpleadores().size();
 
 		TestUtils.clickComponent(empleador, robot);
 
