@@ -651,7 +651,8 @@ public class GuiTestRegistroPanel {
 		
 		TestUtils.clickComponent(registroButton, robot);
 
-		fail("se debe testear cambio de panel");
+		Assert.assertTrue("debeia cambiar de panel", ((JButton) TestUtils.getComponentForName((Ventana) controlador.getVista(),
+				Constantes.CERRARSESION)).isEnabled());
 
 	}
 }
