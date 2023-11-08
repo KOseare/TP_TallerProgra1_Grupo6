@@ -150,6 +150,8 @@ public class GuiTestAdminPanel {
     	TestUtils.clickComponent(textoSuperior, robot);
     	TestUtils.tipeaTexto("120000", robot);
     	Assert.assertTrue("el boton cambiar deberia estar habilitado",modificarValoresButton.isEnabled());
+    	TestUtils.clickComponent(modificarValoresButton, robot);
+    	Assert.assertFalse("el boton cambiar deberia estar deshabilitado",modificarValoresButton.isEnabled());
     }
     @Test
     public void testCerrarSesion()
