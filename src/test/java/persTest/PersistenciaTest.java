@@ -15,43 +15,32 @@ import org.junit.Test;
 import persistencia.AgenciaDTO;
 import persistencia.PersistenciaXML;
 
-/*void
-abrirInput(String nombre)
- 
-void
-abrirOutput(String nombre)
- 
-void
-cerrarInput()
- 
-void
-cerrarOutput()
- 
-void
-escribir(Object objeto)
- 
-Object
-leer()*/
 public class PersistenciaTest {
-	AgenciaDTO ag;
+	
 	PersistenciaXML persistencia;
 	@Before
 	public void setUp() {
 		persistencia = new PersistenciaXML();
-		
 		}
 
 	@After
 	public void tearDown() {
 	}
 
+	
 	@Test
     public void testAbrirInput() throws IOException  {
-		File arch = new File ("archivo.xml");
 		String a=null;
-		//persistencia.abrirInput("archivo.xml");
-		//persistencia.abrirInput(a);
-		//persistencia.abrirInput("archivoxml");
+		File arch = new File ("archivo.xml");
+		try {
+			persistencia.abrirInput("archivo.xml");
+			fail("no debería lanzar una excepcion");
+			//persistencia.abrirInput(a);
+			//persistencia.abrirInput("archivoxml");
+		}
+		catch (Exception e1){
+			fail("debería lanzar una excepcion");
+		}
     }
 	
 	@Test
@@ -66,7 +55,7 @@ public class PersistenciaTest {
 		}
 		try {
 			persistencia.abrirOutput(a);
-			fail("debería lanzar una excepcion");
+			fail("debería lanzar la excepcion nullpointer");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 		}
@@ -75,9 +64,60 @@ public class PersistenciaTest {
 			fail("debería lanzar una excepcion");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
     }
 	
+	@Test
+	public void TestCerrarInput() {
+		try {
+			File arch = new File ("archivo.xml");
+			persistencia.abrirInput("archivo.xml");			
+			persistencia.cerrarInput();
+			fail("no debería lanzar una excepcion");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block			
+		}
+	}
+	
+	@Test
+	public void TestCerrarOutput() {
+		try {
+			File arch = new File ("archivo.xml");
+			persistencia.abrirOutput("archivo.xml");			
+			persistencia.cerrarOutput();
+			fail("no debería lanzar una excepcion");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+		}
+	}
+	
+	@Test
+	public void testLeer() throws ClassNotFoundException {
+		File arch = new File ("archivo.xml");
+		AgenciaDTO ag;
+		try {
+			ag = (AgenciaDTO) persistencia.leer();
+			fail("no debería lanzar una excepcion");
+		} catch (IOException e) {
 
+		}
+	}
+
+	/*Escenario 1: Recibe un parámetro vacío de tipo AgenciaDTO				
+	Escenario 2: Recibe un parámetro tipo String (es un Object)				
+	Escenario 3: Recibe un parámetro null				
+	*/
+	
+	@Test
+	public void testEscribir (){
+		AgenciaDTO ag =  new AgenciaDTO();
+		File arch = new File ("archivo.xml");
+		try {
+			persistencia.abrirOutput("archivo.xml");
+			persistencia.escribir(ag);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			fail("no debería lanzar una excepcion");
+		}
+	}
 }
