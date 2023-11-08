@@ -21,11 +21,8 @@ import excepciones.NewRegisterException;
 import modeloNegocio.Agencia;
 import util.Constantes;
 import vista.Ventana;
-/*
- * 
- * no existe Mensajes.PASS_NO_COINCIDE
- * 
- * */
+
+
 public class GuiTestRegistroPanel {
 
 
