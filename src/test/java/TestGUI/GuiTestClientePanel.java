@@ -4,7 +4,6 @@ import static org.junit.Assert.fail;
 
 import java.awt.AWTException;
 import java.awt.Robot;
-import java.awt.TextArea;
 
 import javax.swing.JButton;
 import javax.swing.JList;
@@ -16,7 +15,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import bin.util.Mensajes;
 import controlador.Controlador;
+import excepciones.ImposibleModificarTicketsException;
 import modeloDatos.Cliente;
 import modeloNegocio.Agencia;
 import util.Constantes;
@@ -147,10 +148,12 @@ public class GuiTestClientePanel {
 	
 	@Test
 	public void testCamposNuevoTicket() {
-		robot.delay(TestUtils.getDelay()*100);
+		robot.delay(TestUtils.getDelay());
 			
 		TestUtils.clickComponent(nuevoTicket, robot);
 	
+		Assert.assertFalse("deberia estar desactivado", nuevoTicket.isEnabled());
+		
 		Assert.assertTrue("deberia estar activado", jornadaMedia.isRolloverEnabled());
 		Assert.assertTrue("deberia estar activado", jornadaExtendida.isRolloverEnabled());
 		Assert.assertTrue("deberia estar activado", jornadaCompleta.isRolloverEnabled());
@@ -172,12 +175,58 @@ public class GuiTestClientePanel {
 		Assert.assertTrue("deberia estar activado", indistinto.isRolloverEnabled());
 	
 		Assert.assertTrue("deberia estar activado", remuneracionPretendida.isEditable());
+		
+		//scroll hasta remuneracion pretendida
+		TestUtils.clickComponent(remuneracionPretendida, robot);
+
+		TestUtils.tipeaTexto("-1", robot);
+		Assert.assertFalse("deberia estar desactivado", confirmarTicket.isEnabled());
+		TestUtils.borraJTextField(remuneracionPretendida, robot);
+		TestUtils.tipeaTexto("aaa", robot);
+		Assert.assertFalse("deberia estar desactivado", confirmarTicket.isEnabled());
+		TestUtils.borraJTextField(remuneracionPretendida, robot);
+		TestUtils.tipeaTexto("1300", robot);
 		Assert.assertTrue("deberia estar activado", confirmarTicket.isEnabled());
 		
-		Assert.assertTrue("deberia estar desactivado", nuevoTicket.isEnabled());
 		
 	}
-	
-	
+	@Test
+	public void testCreacionNuevoTicket() {
+		robot.delay(TestUtils.getDelay());
+
+		//scroll hasta remuneracion pretendida
+		TestUtils.clickComponent(remuneracionPretendida, robot);
+		TestUtils.tipeaTexto("1300", robot);
+		
+		TestUtils.clickComponent(confirmarTicket, robot);
+		Assert.assertFalse("deberia estar desactivado", confirmarTicket.isEnabled());
+		Assert.assertTrue("deberia estar activado", nuevoTicket.isEnabled());
+		
+		
+	}
+	@Test
+	public void testEliminacionTicket() {
+		robot.delay(TestUtils.getDelay());
+		try {
+			Agencia.getInstance().crearTicketEmpleado(Constantes.PRESENCIAL, 12000, Constantes.JORNADA_MEDIA, Constantes.JUNIOR, Constantes.EXP_NADA, Constantes.TERCIARIOS, Agencia.getInstance().getEmpleados().get(0));
+		} catch (ImposibleModificarTicketsException e) {
+			// TODO Auto-generated catch block
+			fail("no deberia lanzar excepcion");
+		}
+	}
+	@Test
+	public void testAreaDeTexto() {
+		robot.delay(TestUtils.getDelay());
+		Assert.assertTrue("deberia mostra el mensaje Mensajes.SIN_TICKET.getValor()",textAreaTicket.getText() == "");//no existe Mensajes.SIN_TICKET.getValor()
+	}
+	@Test
+	public void testCerrarSesion() {
+		robot.delay(TestUtils.getDelay());
+		
+		TestUtils.clickComponent(cerrarSesion, robot);
+		Assert.assertTrue("deberia estar habilitado",cerrarSesion.isEnabled());
+		Assert.assertFalse("deberia volver a la panel login",cerrarSesion.isEnabled());//no encuentro manera de obtener el panel actual
+
+	}
 	
 }
