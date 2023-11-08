@@ -22,7 +22,14 @@ import modeloDatos.Cliente;
 import modeloNegocio.Agencia;
 import util.Constantes;
 import vista.Ventana;
-
+/*
+ * no existe Mensajes.SIN_TICKET.getValor()
+ * manera de obtener el panel actual
+ * Obtener el scrollbar
+ * 
+ * 
+ * 
+ * */
 public class GuiTestClientePanel {
 
 	protected Robot robot;

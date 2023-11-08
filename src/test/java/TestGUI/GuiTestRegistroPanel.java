@@ -23,7 +23,11 @@ import modeloNegocio.Agencia;
 import util.Constantes;
 import vista.PanelLogin;
 import vista.Ventana;
-
+/*
+ * 
+ * no existe Mensajes.PASS_NO_COINCIDE
+ * 
+ * */
 public class GuiTestRegistroPanel {
 
 	protected Robot robot;
