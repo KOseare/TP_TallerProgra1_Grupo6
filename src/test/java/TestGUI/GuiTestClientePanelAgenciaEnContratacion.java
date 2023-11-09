@@ -4,13 +4,10 @@ import static org.junit.Assert.fail;
 
 import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import modeloNegocio.Agencia;
 import util.Mensajes;
-import vista.Ventana;
 
 public class GuiTestClientePanelAgenciaEnContratacion extends GuiTestClientePanel {
 

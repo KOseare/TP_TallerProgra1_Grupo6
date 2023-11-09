@@ -41,6 +41,7 @@ public class GuiTestAdminPanel {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Before
 	public void setUp() throws Exception {
 		Agencia.getInstance().getEmpleadores().clear();

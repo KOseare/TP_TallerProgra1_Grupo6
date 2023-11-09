@@ -18,7 +18,6 @@ import org.junit.Test;
 
 import util.Mensajes;
 import controlador.Controlador;
-import excepciones.ImposibleModificarTicketsException;
 import modeloDatos.Cliente;
 import modeloNegocio.Agencia;
 import util.Constantes;
@@ -84,6 +83,7 @@ public class GuiTestClientePanel {
 		 inicializacionDatos();
 		
 	}
+	@SuppressWarnings("unchecked")
 	public void inicializacionDatos() {
 		loginButton = (JButton) TestUtils.getComponentForName((Ventana) controlador.getVista(),
 				Constantes.LOGIN);

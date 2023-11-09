@@ -9,14 +9,12 @@ import javax.swing.JTextField;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import controlador.Controlador;
 import modeloNegocio.Agencia;
 import bin.util.Mensajes;
 import util.Constantes;
-import vista.IOptionPane;
 import vista.Ventana;
 
 public class GuiTestLoginPanel {
