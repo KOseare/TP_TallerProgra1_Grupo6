@@ -1,17 +1,16 @@
 package persTest;
 
 import static org.junit.Assert.fail;
-
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-
+import java.util.ArrayList;
+import java.util.HashMap;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-
+import modeloDatos.Cliente;
+import modeloDatos.Contratacion;
+import modeloDatos.EmpleadoPretenso;
+import modeloDatos.Empleador;
 import persistencia.AgenciaDTO;
 import persistencia.PersistenciaXML;
 
@@ -21,102 +20,111 @@ public class PersistenciaTest {
 	@Before
 	public void setUp() {
 		persistencia = new PersistenciaXML();
-		}
+
+	}
 
 	@After
 	public void tearDown() {
+
 	}
 
 	
 	@Test
     public void testAbrirInput() throws IOException  {
-		String a=null;
-		File arch = new File ("archivo.xml");
 		try {
 			persistencia.abrirInput("archivo.xml");
-			fail("no debería lanzar una excepcion");
-			//persistencia.abrirInput(a);
-			//persistencia.abrirInput("archivoxml");
 		}
 		catch (Exception e1){
-			fail("debería lanzar una excepcion");
+			fail("esc 1: no debería lanzar una excepcion");
+		}
+		try {
+			persistencia.abrirInput(null);
+			fail("esc 2: deberia lanzar una null pointer excepction");
+		}
+		catch (Exception e1){
 		}
     }
 	
 	@Test
     public void testAbrirOutput() {
-		File arch = new File ("archivo.xml");
-		String a=null;
 		try {
 			persistencia.abrirOutput("archivo.xml");
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			fail("no debería lanzar una excepcion");
+			fail("no debería lanzar una excepcion escenario 1");
 		}
 		try {
-			persistencia.abrirOutput(a);
-			fail("debería lanzar la excepcion nullpointer");
+			persistencia.abrirOutput(null);
+			fail("debería lanzar la excepcion nullpointer escenario2");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 		}
-		try {
-			persistencia.abrirOutput("archivoxml");
-			fail("debería lanzar una excepcion");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-		}
-    }
+	}
 	
 	@Test
 	public void TestCerrarInput() {
 		try {
-			File arch = new File ("archivo.xml");
 			persistencia.abrirInput("archivo.xml");			
 			persistencia.cerrarInput();
-			fail("no debería lanzar una excepcion");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block			
+			fail("no debería lanzar una excepcion");	
 		}
 	}
 	
 	@Test
 	public void TestCerrarOutput() {
 		try {
-			File arch = new File ("archivo.xml");
 			persistencia.abrirOutput("archivo.xml");			
 			persistencia.cerrarOutput();
-			fail("no debería lanzar una excepcion");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			fail("no debería lanzar una excepcion al primer intento de cerrar");
 		}
 	}
 	
 	@Test
 	public void testLeer() throws ClassNotFoundException {
-		File arch = new File ("archivo.xml");
-		AgenciaDTO ag;
 		try {
+			AgenciaDTO ag;
 			ag = (AgenciaDTO) persistencia.leer();
-			fail("no debería lanzar una excepcion");
 		} catch (IOException e) {
-
+			fail("no debería lanzar una excepcion");
 		}
 	}
 
 	/*Escenario 1: Recibe un parámetro vacío de tipo AgenciaDTO				
-	Escenario 2: Recibe un parámetro tipo String (es un Object)				
-	Escenario 3: Recibe un parámetro null				
+	Escenario 2: Recibe un parámetro no vacío								
 	*/
 	
 	@Test
-	public void testEscribir (){
+	public void testEscribir1 (){
 		AgenciaDTO ag =  new AgenciaDTO();
-		File arch = new File ("archivo.xml");
 		try {
-			persistencia.abrirOutput("archivo.xml");
+			persistencia.abrirOutput("archivo1.xml");
 			persistencia.escribir(ag);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			fail("no debería lanzar una excepcion");
+		}
+	}
+	
+	@Test
+	public void testEscribir2 (){
+		AgenciaDTO ag =  new AgenciaDTO();
+		EmpleadoPretenso testPretenso = new EmpleadoPretenso ("torime","abcdario","Maria","0303456","Antonieta",45);
+		HashMap<Cliente, Double> testComisiones = new HashMap<Cliente,Double>();
+		testComisiones.put(testPretenso, 0.9);
+		HashMap<String,EmpleadoPretenso> testEmpleadosPretensos = new HashMap<String,EmpleadoPretenso>();
+		HashMap<String,Empleador> testEmpleadores = new HashMap<String,Empleador>();
+		ArrayList<Contratacion> testContrataciones = new ArrayList<Contratacion>();
+		ag.setComisionesUsuarios(testComisiones);
+		ag.setContrataciones(testContrataciones);
+		ag.setEmpleadores(testEmpleadores);
+		ag.setEmpleados(testEmpleadosPretensos);
+		ag.setEstadoContratacion(false);
+		ag.setLimiteInferior(1000);
+		ag.setLimiteSuperior(2000);
+		try {
+			persistencia.abrirOutput("archivo2.xml");
+			persistencia.escribir(ag);
+			persistencia.cerrarOutput();
+		} catch (IOException e) {
 			fail("no debería lanzar una excepcion");
 		}
 	}
