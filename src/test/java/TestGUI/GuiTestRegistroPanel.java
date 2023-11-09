@@ -57,7 +57,7 @@ public class GuiTestRegistroPanel {
 		TestUtils.clickComponent(registroButton, robot);
 
 		// se debe de abrir un Registro Panel
-
+		robot.delay(500);//tarda en cambiar
 		// datos a usar
 		registroButton = (JButton) TestUtils.getComponentForName((Ventana) controlador.getVista(),
 				Constantes.REG_BUTTON_REGISTRAR);
@@ -581,12 +581,13 @@ public class GuiTestRegistroPanel {
 	@Test
 	public void testRegUsuarioRepetido() {
 		robot.delay(TestUtils.getDelay());
+		
 
 
 		try {
 			Agencia.getInstance().registroEmpleado("Roberts", "123456", "Roberto", "Manhattan", "2233222332", 18);
 		} catch (NewRegisterException | ImposibleCrearEmpleadoException e) {
-			
+			fail("no deberia haber una excepcion");
 		}
 		
 		TestUtils.clickComponent(empleado, robot);
@@ -650,7 +651,8 @@ public class GuiTestRegistroPanel {
 		TestUtils.clickComponent(fisica, robot);
 		
 		TestUtils.clickComponent(registroButton, robot);
-
+		robot.delay(TestUtils.getDelay()*10);
+		
 		Assert.assertTrue("debeia cambiar de panel", ((JButton) TestUtils.getComponentForName((Ventana) controlador.getVista(),
 				Constantes.CERRARSESION)).isEnabled());
 

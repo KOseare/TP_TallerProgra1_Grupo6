@@ -11,6 +11,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,7 +41,7 @@ public class GuiTestClientePanel {
 	protected JButton loginButton,seleccionarCandidato,nuevoTicket,eliminarTicket,confirmarTicket,cerrarSesion;
 	protected JTextField nombreUsuario,contra,remuneracionPretendida;
 	protected JRadioButton jornadaMedia,jornadaCompleta,jornadaExtendida,expNada,expMedia,expMucha,primario,secundario,terciario,junior,senior,managment,prescencial,homeOffice,indistinto;
-	protected JTextArea textAreaTicket;
+	protected JTextArea textAreaTicket,textAreaResultados;
 	protected JList<Cliente> listaCandidatos;
 	
 	public GuiTestClientePanel() {
@@ -62,12 +63,28 @@ public class GuiTestClientePanel {
 		try {
 			Agencia.getInstance().registroEmpleador("Juan Ignacio", "password", "DrOcropus :P", "4637283942", Constantes.FISICA, Constantes.SALUD);
 			Agencia.getInstance().registroEmpleado("Roberts", "123456", "Roberto", "Manhattan", "2233222332", 18);
-
+			
+			Agencia.getInstance().crearTicketEmpleador(Constantes.HOME_OFFICE, 6000, Constantes.JORNADA_MEDIA, Constantes.SENIOR, Constantes.EXP_MEDIA, Constantes.SECUNDARIOS, Agencia.getInstance().getEmpleadores().get("Juan Ignacio"));
+			
+			Agencia.getInstance().crearTicketEmpleado(Constantes.PRESENCIAL, 12000, Constantes.JORNADA_MEDIA, Constantes.JUNIOR, Constantes.EXP_NADA, Constantes.TERCIARIOS, Agencia.getInstance().getEmpleados().get("Roberts"));
+			
+			Agencia.getInstance().registroEmpleador("Talon", "password", "Aquiles", "4637283962", Constantes.FISICA, Constantes.SALUD);
+			Agencia.getInstance().registroEmpleado("Patroclo", "123456", "Patricio", "Roma", "2234222332", 24);
+			
+			Agencia.getInstance().crearTicketEmpleador(Constantes.PRESENCIAL, 3000, Constantes.JORNADA_COMPLETA, Constantes.SENIOR, Constantes.EXP_MEDIA, Constantes.SECUNDARIOS, Agencia.getInstance().getEmpleadores().get("Talon"));
+			Agencia.getInstance().crearTicketEmpleado(Constantes.PRESENCIAL, 2500, Constantes.JORNADA_COMPLETA, Constantes.MANAGMENT, Constantes.EXP_MUCHA, Constantes.TERCIARIOS, Agencia.getInstance().getEmpleados().get("Patroclo"));
+			
+			
 		} catch (Exception e) {
+			e.printStackTrace();
 			fail("no deberia lanzar excepcion");
+			
 		} 
 		
-
+		 inicializacionDatos();
+		
+	}
+	public void inicializacionDatos() {
 		loginButton = (JButton) TestUtils.getComponentForName((Ventana) controlador.getVista(),
 				Constantes.LOGIN);
 		
@@ -86,6 +103,7 @@ public class GuiTestClientePanel {
 		TestUtils.clickComponent(loginButton, robot);
 		
 		// se debe de abrir un Panel Cliente
+		robot.delay(500);//tarda en abrirse
 
 		// datos a usar
 		seleccionarCandidato = (JButton) TestUtils.getComponentForName((Ventana) controlador.getVista(),
@@ -136,11 +154,19 @@ public class GuiTestClientePanel {
 		
 		textAreaTicket = (JTextArea) TestUtils.getComponentForName((Ventana) controlador.getVista(),
 				Constantes.TEXT_AREA_TICKET);
+		textAreaResultados = (JTextArea) TestUtils.getComponentForName((Ventana) controlador.getVista(),
+				Constantes.TEXT_AREA_RESULTADOS);
 		listaCandidatos = (JList<Cliente>) TestUtils.getComponentForName((Ventana) controlador.getVista(),
 				Constantes.LISTA_CANDIDATOS);
 		remuneracionPretendida = (JTextField) TestUtils.getComponentForName((Ventana) controlador.getVista(),
 				Constantes.TEXTFIELD_REMUNERACION);
 	}
+	@After
+	public void tearDown() throws Exception {
+		Ventana v = (Ventana) controlador.getVista();
+		v.setVisible(false);
+	}
+
 	
 	@Test
 	public void testSeleccionarCandidatoVacio() {
@@ -202,6 +228,7 @@ public class GuiTestClientePanel {
 		robot.delay(TestUtils.getDelay());
 
 		//scroll hasta remuneracion pretendida
+		TestUtils.clickComponent(nuevoTicket, robot);
 		TestUtils.clickComponent(remuneracionPretendida, robot);
 		TestUtils.tipeaTexto("1300", robot);
 		
@@ -214,32 +241,37 @@ public class GuiTestClientePanel {
 	@Test
 	public void testEliminacionTicket() {
 		robot.delay(TestUtils.getDelay());
-		try {
-			Agencia.getInstance().crearTicketEmpleado(Constantes.PRESENCIAL, 12000, Constantes.JORNADA_MEDIA, Constantes.JUNIOR, Constantes.EXP_NADA, Constantes.TERCIARIOS, Agencia.getInstance().getEmpleados().get(0));
-			Assert.assertTrue("deberia estar activado",eliminarTicket.isEnabled());
+
+			/*TestUtils.clickComponent(nuevoTicket, robot);//la creacion por la clase controlador no actualiza la pantalla
+			TestUtils.clickComponent(remuneracionPretendida, robot);
+			TestUtils.tipeaTexto("1300", robot);
+			TestUtils.clickComponent(confirmarTicket, robot);*/
 			
+			Assert.assertTrue("deberia estar activado",eliminarTicket.isEnabled());
 			TestUtils.clickComponent(eliminarTicket, robot);
 			Assert.assertFalse("deberia estar desactivado",eliminarTicket.isEnabled());
 			
-			
-		} catch (ImposibleModificarTicketsException e) {
-			// TODO Auto-generated catch block
-			fail("no deberia lanzar excepcion");
-		}
+
 	}
 	@Test
 	public void testAreaDeTexto() {
 		robot.delay(TestUtils.getDelay());
-		Assert.assertTrue("deberia mostra el mensaje Mensajes.SIN_TICKET.getValor()",textAreaTicket.getText() == Mensajes.SIN_TICKET.getValor());//no existe Mensajes.SIN_TICKET.getValor()
+		
+		Assert.assertFalse("no deberia mostra el mensaje Mensajes.SIN_TICKET.getValor()",textAreaTicket.getText() == Mensajes.SIN_TICKET.getValor());
+		TestUtils.clickComponent(eliminarTicket, robot);
+		Assert.assertTrue("deberia mostra el mensaje Mensajes.SIN_TICKET.getValor()",textAreaTicket.getText() == Mensajes.SIN_TICKET.getValor());
+		
 	}
 	@Test
 	public void testCerrarSesion() {
 		robot.delay(TestUtils.getDelay());
+
+		Assert.assertTrue("deberia estar habilitado",cerrarSesion.isEnabled());
 		
 		TestUtils.clickComponent(cerrarSesion, robot);
-		Assert.assertTrue("deberia estar habilitado",cerrarSesion.isEnabled());
-		Assert.assertFalse("deberia volver a la panel login",cerrarSesion.isEnabled());//no encuentro manera de obtener el panel actual
 
+		Assert.assertTrue("deberia volver a la panel login",((JButton) TestUtils.getComponentForName((Ventana) controlador.getVista(),
+				Constantes.LOGIN)).isEnabled());
 	}
-	
+
 }
