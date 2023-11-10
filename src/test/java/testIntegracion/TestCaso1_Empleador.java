@@ -3,8 +3,6 @@ package testIntegracion;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import java.util.HashMap;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,8 +11,6 @@ import excepciones.ContraException;
 import excepciones.ImposibleCrearEmpleadorException;
 import excepciones.NewRegisterException;
 import excepciones.NombreUsuarioException;
-import modeloDatos.EmpleadoPretenso;
-import modeloDatos.Empleador;
 import modeloNegocio.Agencia;
 import util.Constantes;
 
@@ -29,9 +25,7 @@ public class TestCaso1_Empleador {
 	
 	@After
 	public void tearDown() {
-		this.ag.setEmpleadores(new HashMap<String, Empleador>());
-		this.ag.setEmpleados(new HashMap<String, EmpleadoPretenso>());
-		this.ag.cerrarSesion();
+		MockUtils.resetSingleton(Agencia.class);
 	}
 
 	@Test

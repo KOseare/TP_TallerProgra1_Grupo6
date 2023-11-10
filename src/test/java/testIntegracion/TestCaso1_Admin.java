@@ -22,7 +22,7 @@ public class TestCaso1_Admin {
 	
 	@After
 	public void tearDown() {
-		this.ag.cerrarSesion();
+		MockUtils.resetSingleton(Agencia.class);
 	}
 	
 	@Test
