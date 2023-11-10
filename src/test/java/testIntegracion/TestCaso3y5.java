@@ -5,6 +5,7 @@ import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,7 +16,7 @@ import modeloDatos.ClientePuntaje;
 import modeloNegocio.Agencia;
 import util.Constantes;
 
-public class TestCaso3 {
+public class TestCaso3y5 {
 
 	private Agencia ag;
 	private static boolean isAgInit = false;
@@ -53,6 +54,11 @@ public class TestCaso3 {
 			
 			ag.gatillarRonda();
 		}
+	}
+	
+	@AfterClass
+	public static void classTearDown () {
+		MockUtils.resetSingleton(Agencia.class);
 	}
 
 	@Test

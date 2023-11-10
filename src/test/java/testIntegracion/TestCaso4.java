@@ -5,6 +5,7 @@ import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -56,6 +57,11 @@ public class TestCaso4 {
 			ag.gatillarRonda();
 		}
 	}
+	
+	@AfterClass
+	public static void classTearDown () {
+		MockUtils.resetSingleton(Agencia.class);
+	}
 
 	@Test
 	public void casoDePruebaEmpleado1() {
@@ -64,6 +70,8 @@ public class TestCaso4 {
 			Cliente contratacion = ag.getContratacionEmpleadoPretenso((EmpleadoPretenso) cl);
 			
 			assertEquals(clientes.get(2), contratacion);
+			assertEquals(10, cl.getPuntaje());
+			assertEquals(1100.0 * 0.9, this.ag.getComisionUsuario(cl), 0.001);
 		} catch (ContraException | NombreUsuarioException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -78,6 +86,7 @@ public class TestCaso4 {
 			Cliente contratacion = ag.getContratacionEmpleadoPretenso((EmpleadoPretenso) cl);
 			
 			assertEquals(null, contratacion);
+			assertEquals(0, cl.getPuntaje());
 		} catch (ContraException | NombreUsuarioException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -92,6 +101,8 @@ public class TestCaso4 {
 			Cliente contratacion = ag.getContratacionEmpleador((Empleador) cl);
 			
 			assertEquals(clientes.get(0), contratacion);
+			assertEquals(50, cl.getPuntaje());
+			assertEquals(1500.0 * 0.7, this.ag.getComisionUsuario(cl), 0.001);
 		} catch (ContraException | NombreUsuarioException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -106,6 +117,7 @@ public class TestCaso4 {
 			Cliente contratacion = ag.getContratacionEmpleador((Empleador) cl);
 			
 			assertEquals(null, contratacion);
+			assertEquals(-20, cl.getPuntaje());
 		} catch (ContraException | NombreUsuarioException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
