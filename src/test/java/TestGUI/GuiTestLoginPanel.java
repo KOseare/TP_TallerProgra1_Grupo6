@@ -174,6 +174,7 @@ public class GuiTestLoginPanel {
 		TestUtils.tipeaTexto("admin", robot);
 
 		TestUtils.clickComponent(aceptarLog, robot);
+		robot.delay(500);
 		// verifico los resultados
 		Assert.assertTrue("deberia haber logeado",((JButton) TestUtils.getComponentForName((Ventana) controlador.getVista(),
 				Constantes.CERRARSESION)).isEnabled());

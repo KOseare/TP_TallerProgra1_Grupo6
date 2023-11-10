@@ -575,7 +575,7 @@ public class GuiTestRegistroPanel {
 		
 		TestUtils.clickComponent(registroButton, robot);
 		
-		Assert.assertEquals(Mensajes.PASS_NO_COINCIDE.getValor(), op.getMensaje());//se espera un mensaje pero en realidad agrega el empleado con contraseña incorrecta
+		Assert.assertEquals("No sale una ventana emergente o el mensaje es incorrecto",Mensajes.PASS_NO_COINCIDE.getValor(), op.getMensaje());//se espera un mensaje pero en realidad agrega el empleado con contraseña incorrecta
 		
 	}
 	@Test
