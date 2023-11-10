@@ -23,9 +23,7 @@ public class ContratacionTest {
 	@After
 	public void tearDown() throws Exception {
 	}
-/*Contratacion(Empleador empleador, EmpleadoPretenso empleado)
-Construye una contratacion con el empleado y el empledor pasados por parametro
- y la fecha actual pre: los parametros son diferentes de null*/
+
 	@Test
 	public void testContratacion() {
 		try {
