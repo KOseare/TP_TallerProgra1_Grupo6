@@ -8,7 +8,8 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses({ 
 	EmpleadorTest.class,
 	UsuarioTest.class,
-	EmpleadoPretensoTest.class
+	EmpleadoPretensoTest.class,
+	AdminTest.class
 })
 public class SuiteDatos {
 
