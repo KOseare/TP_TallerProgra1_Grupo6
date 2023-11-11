@@ -9,7 +9,9 @@ import org.junit.runners.Suite.SuiteClasses;
 	EmpleadorTest.class,
 	UsuarioTest.class,
 	EmpleadoPretensoTest.class,
-	AdminTest.class
+	AdminTest.class,
+	ContratacionTest.class,
+	TicketTest.class
 })
 public class SuiteDatos {
 
