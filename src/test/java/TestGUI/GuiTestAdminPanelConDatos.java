@@ -90,7 +90,7 @@ public class GuiTestAdminPanelConDatos extends GuiTestAdminPanel{
         TestUtils.clickComponent(listaPostulantes, robot);
         TestUtils.clickComponent(aplicarPromoButton, robot);
 
-        Assert.assertTrue("deberia salir una ventana emergente o el mensaje es invalido",op.getMensaje()==listaEmpleados.getSelectedValue().toString());
+        Assert.assertEquals("deberia salir una ventana emergente o el mensaje es invalido",op.getMensaje(), listaEmpleados.getSelectedValue().toString());
         
 	}
 	@Test
@@ -99,7 +99,7 @@ public class GuiTestAdminPanelConDatos extends GuiTestAdminPanel{
     	listaEmpleados.setSelectedIndex(0);
         TestUtils.clickComponent(aplicarPromoButton, robot);
 
-        Assert.assertTrue("deberia salir una ventana emergente o el mensaje es invalido",op.getMensaje()==listaEmpleados.getSelectedValue().toString());
+        Assert.assertEquals("deberia salir una ventana emergente o el mensaje es invalido",op.getMensaje(), listaEmpleados.getSelectedValue().toString());
 	}
 	@Test
 	public void testAplicarPromoEmpleador() {
@@ -108,7 +108,7 @@ public class GuiTestAdminPanelConDatos extends GuiTestAdminPanel{
         TestUtils.clickComponent(listaPostulantes, robot);
         TestUtils.clickComponent(aplicarPromoButton, robot);
 
-        Assert.assertTrue("deberia salir una ventana emergente o el mensaje es invalido",op.getMensaje()==listaEmpleadores.getSelectedValue().toString());
+        Assert.assertEquals("deberia salir una ventana emergente o el mensaje es invalido",op.getMensaje(), listaEmpleadores.getSelectedValue().toString());
         
 	}
 	@Test
@@ -117,7 +117,7 @@ public class GuiTestAdminPanelConDatos extends GuiTestAdminPanel{
     	listaEmpleadores.setSelectedIndex(0);
         TestUtils.clickComponent(aplicarPromoButton, robot);
 
-        Assert.assertTrue("deberia salir una ventana emergente o el mensaje es invalido",op.getMensaje()==listaEmpleadores.getSelectedValue().toString());
+        Assert.assertEquals("deberia salir una ventana emergente o el mensaje es invalido",op.getMensaje(), listaEmpleadores.getSelectedValue().toString());
 	}
 	
 
