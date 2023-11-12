@@ -27,7 +27,7 @@ public class CreatTicketEmpleadorTest {
 	}
 
 	@Test
-	public void testCrearTicketEmpleado1() {
+	public void testCrearTicketEmpleador1() {
 		try {
 			Cliente empr = ag.registroEmpleador("nicod3", "123456", "Nicolas", "+542236012345", Constantes.FISICA, Constantes.COMERCIO_INTERNACIONAL);
 			ag.crearTicketEmpleador(Constantes.HOME_OFFICE, 1500, Constantes.JORNADA_COMPLETA, Constantes.SENIOR, Constantes.EXP_MEDIA, Constantes.TERCIARIOS, empr);
@@ -45,13 +45,13 @@ public class CreatTicketEmpleadorTest {
 	}
 	
 	@Test
-	public void testCrearTicketEmpleado2() {
+	public void testCrearTicketEmpleador2() {
 		try {
 			Cliente empr = ag.registroEmpleador("nicod3", "123456", "Nicolas", "+542236012345", Constantes.FISICA, Constantes.COMERCIO_INTERNACIONAL);
-			ag.crearTicketEmpleado(Constantes.INDISTINTO, 2000, Constantes.JORNADA_MEDIA, Constantes.JUNIOR, Constantes.EXP_MUCHA, Constantes.SECUNDARIOS, empr);
+			ag.crearTicketEmpleador(Constantes.INDISTINTO, 2000, Constantes.JORNADA_MEDIA, Constantes.JUNIOR, Constantes.EXP_MUCHA, Constantes.SECUNDARIOS, empr);
 			Ticket oldTicket = empr.getTicket();
 			
-			ag.crearTicketEmpleado(Constantes.HOME_OFFICE, 1500, Constantes.JORNADA_COMPLETA, Constantes.SENIOR, Constantes.EXP_MEDIA, Constantes.TERCIARIOS, empr);
+			ag.crearTicketEmpleador(Constantes.HOME_OFFICE, 1500, Constantes.JORNADA_COMPLETA, Constantes.SENIOR, Constantes.EXP_MEDIA, Constantes.TERCIARIOS, empr);
 			Ticket ticket = empr.getTicket();
 			
 			assertEquals(Constantes.HOME_OFFICE, ticket.getLocacion());
